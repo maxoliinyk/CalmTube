@@ -46,44 +46,25 @@ class CleanTube {
         '#guide ytd-guide-collapsible-entry-renderer'
       ],
       'hide-explore-section': [
-        // Target the entire explore section by finding sections containing trending
-        '#sections ytd-guide-section-renderer:has(a[title="Trending"])',
-        '#guide ytd-guide-section-renderer:has(a[title="Trending"])',
-        // Target individual explore items directly
-        'ytd-guide-entry-renderer:has(a[title="Trending"])',
-        'ytd-guide-entry-renderer:has(a[title="Music"])',
-        'ytd-guide-entry-renderer:has(a[title="Films"])',
-        'ytd-guide-entry-renderer:has(a[title="Gaming"])',
-        'ytd-guide-entry-renderer:has(a[title="News"])',
-        'ytd-guide-entry-renderer:has(a[title="Sport"])',
-        'ytd-guide-entry-renderer:has(a[title="Learning"])',
-        'ytd-guide-entry-renderer:has(a[title="Playables"])',
-        'ytd-guide-entry-renderer:has(a[title="Fashion & Beauty"])',
-        'ytd-guide-entry-renderer:has(a[title="Podcasts"])',
-        // Also target by href patterns as backup
-        'ytd-guide-entry-renderer:has(a[href*="/feed/trending"])',
-        'ytd-guide-entry-renderer:has(a[href*="/gaming"])',
-        'ytd-guide-entry-renderer:has(a[href*="/feed/storefront"])',
-        // Target sections containing these items
-        '#sections ytd-guide-section-renderer:has(ytd-guide-entry-renderer:has(a[title="Gaming"]))',
-        '#sections ytd-guide-section-renderer:has(ytd-guide-entry-renderer:has(a[title="News"]))'
+        // Hide the entire "Explore" guide section (title + all items + divider)
+        'ytd-guide-section-renderer:has(a[href^="/feed/trending"])',
+        'ytd-guide-section-renderer:has(a[href="/gaming"])',
+        'ytd-guide-section-renderer:has(a[href="/live"])',
+        'ytd-mini-guide-entry-renderer:has(a[href="/explore"])',
+        // Divider following the section
+        'ytd-guide-section-renderer:has(a[href^="/feed/trending"]) + hr',
+        'ytd-guide-section-renderer:has(a[href="/gaming"]) + hr'
       ],
       'hide-more-from-youtube': [
-        // Target the entire "More from YouTube" section
-        '#sections ytd-guide-section-renderer:has(a[title="YouTube Studio"])',
-        '#guide ytd-guide-section-renderer:has(a[title="YouTube Studio"])',
-        '#sections ytd-guide-section-renderer:has(a[title="YouTube Music"])',
-        '#guide ytd-guide-section-renderer:has(a[title="YouTube Music"])',
-        // Target individual items directly
-        'ytd-guide-entry-renderer:has(a[title="YouTube Studio"])',
-        'ytd-guide-entry-renderer:has(a[title="YouTube Music"])',
-        'ytd-guide-entry-renderer:has(a[title="YouTube Kids"])',
-        'ytd-guide-entry-renderer:has(a[title="YouTube Premium"])',
-        // Target by href as backup
-        'ytd-guide-entry-renderer:has(a[href*="studio.youtube.com"])',
-        'ytd-guide-entry-renderer:has(a[href*="music.youtube.com"])',
-        'ytd-guide-entry-renderer:has(a[href*="youtubekids.com"])',
-        'ytd-guide-entry-renderer:has(a[href*="youtube.com/premium"])'
+        /* Hide "More from YouTube" section*/
+        'ytd-guide-section-renderer:has(a[href*="studio.youtube.com"])',
+        'ytd-guide-section-renderer:has(a[href*="studio.youtube.com"]) + hr',
+
+        /* Collapsed-sidebar (mini guide) icons for Studio / Kids / Premium / TV */
+        'ytd-mini-guide-entry-renderer:has(a[href*="studio.youtube.com"])',
+        'ytd-mini-guide-entry-renderer:has(a[href*="youtubekids.com"])',
+        'ytd-mini-guide-entry-renderer:has(a[href*="youtube.com/premium"])',
+        'ytd-mini-guide-entry-renderer:has(a[href*="tv.youtube.com"])'
       ],
       'hide-shorts': [
         // Shorts button in sidebar

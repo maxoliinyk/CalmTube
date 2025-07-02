@@ -80,6 +80,10 @@ consider:
 - Reporting bugs and suggesting features
 - Contributing code improvements
 
+## Known Issues
+
+- The "Hide More from YouTube" option may also hide main sidebar buttons like Home, Subscriptions, Shorts, and YouTube Music.
+
 ---
 
 Made for a cleaner YouTube experience.
