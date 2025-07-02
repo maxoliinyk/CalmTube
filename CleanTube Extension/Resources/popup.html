@@ -1,11 +1,178 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="popup.css">
-    <script type="module" src="popup.js"></script>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+  <script type="module" src="popup.js"></script>
 </head>
+
 <body>
-    <strong>Hello World!</strong>
+  <div class="header">
+    <h2>🧹 CleanTube</h2>
+    <p>Clean your YouTube experience</p>
+  </div>
+
+  <div class="options-container">
+    <!-- Sidebar Management -->
+    <div class="section">
+      <h3>📋 Sidebar</h3>
+      <label class="option">
+        <input type="checkbox" id="hide-entire-sidebar">
+        <span>Hide Entire Sidebar</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-shorts">
+        <span>Disable Shorts</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-you-section">
+        <span>Hide "You" Section</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-subscriptions-section">
+        <span>Hide Subscriptions Section</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-explore-section">
+        <span>Hide Explore Section</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-more-from-youtube">
+        <span>Hide "More from YouTube"</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-sidebar-footer">
+        <span>Hide Sidebar Footer (Settings, Help, etc.)</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-footer">
+        <span>Hide Footer Links</span>
+      </label>
+    </div>
+
+    <!-- Top Bar Elements -->
+    <div class="section">
+      <h3>🔝 Top Bar</h3>
+      <label class="option">
+        <input type="checkbox" id="hide-burger-menu">
+        <span>Hide Burger Menu</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-youtube-logo">
+        <span>Hide YouTube Logo</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-search-bar">
+        <span>Hide Search Bar</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-search-filters">
+        <span>Hide Filter Chips</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-create-button">
+        <span>Hide Create Button</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-notifications">
+        <span>Hide Notifications</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-profile-menu">
+        <span>Hide Profile Menu</span>
+      </label>
+    </div>
+
+    <!-- Home Page Content -->
+    <div class="section">
+      <h3>🏠 Home Page</h3>
+      <label class="option">
+        <input type="checkbox" id="hide-recommendations">
+        <span>Hide Video Recommendations</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-trending">
+        <span>Hide Trending</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-news">
+        <span>Hide News Section</span>
+      </label>
+    </div>
+
+    <!-- Video Page Elements -->
+    <div class="section">
+      <h3>🎥 Video Page</h3>
+      <label class="option">
+        <input type="checkbox" id="hide-related-videos">
+        <span>Hide Related Videos</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-comments">
+        <span>Hide Comments</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-video-suggestions">
+        <span>Hide End Screen Cards</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-video-description">
+        <span>Hide Video Description</span>
+      </label>
+    </div>
+
+    <!-- Video Interaction Buttons -->
+    <div class="section">
+      <h3>👆 Video Interactions</h3>
+      <label class="option">
+        <input type="checkbox" id="hide-like-dislike">
+        <span>Hide Like/Dislike Buttons</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-share-button">
+        <span>Hide Share Button</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-clip-button">
+        <span>Hide Clip Button</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-save-button">
+        <span>Hide Save Button</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-more-actions">
+        <span>Hide "..." More Actions</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-subscribe-button">
+        <span>Hide Subscribe Button</span>
+      </label>
+    </div>
+
+    <!-- Miscellaneous -->
+    <div class="section">
+      <h3>🔧 Miscellaneous</h3>
+      <label class="option">
+        <input type="checkbox" id="hide-voice-search">
+        <span>Hide Voice Search</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="hide-live-chat">
+        <span>Hide Live Chat</span>
+      </label>
+      <label class="option">
+        <input type="checkbox" id="ultra-clean-mode">
+        <span>🎯 Ultra Minimal Mode</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="footer">
+    <button id="toggle-all" class="toggle-btn">Toggle All</button>
+    <button id="reset-all" class="reset-btn">Reset</button>
+  </div>
 </body>
+
 </html>

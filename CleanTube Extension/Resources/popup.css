@@ -1,15 +1,206 @@
 :root {
-    color-scheme: light dark;
-}
-
-body {
-    width: 100px;
-    padding: 10px;
-
-    font-family: system-ui;
-    text-align: center;
+  color-scheme: light dark;
+  --primary-color: #ff4757;
+  --secondary-color: #2f3542;
+  --background-color: #ffffff;
+  --text-color: #2f3640;
+  --border-color: #ddd;
+  --hover-color: #f1f2f6;
 }
 
 @media (prefers-color-scheme: dark) {
-    /* Dark Mode styles go here. */
+  :root {
+    --background-color: #1e1e1e;
+    --text-color: #ffffff;
+    --border-color: #404040;
+    --hover-color: #2a2a2a;
+    --secondary-color: #ffffff;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 320px;
+  max-height: 600px;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-size: 14px;
+  line-height: 1.4;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.header {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, var(--primary-color), #ff3742);
+  color: white;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.header p {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+.options-container {
+  padding: 16px 20px 24px;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.section h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border-color);
+  user-select: none;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  border-radius: 6px;
+  margin: 2px 0;
+  min-height: 40px;
+}
+
+.option:hover {
+  background-color: var(--hover-color);
+}
+
+.option:active {
+  transform: translateY(1px);
+  transition: transform 0.1s ease;
+}
+
+.option input[type="checkbox"] {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.option span {
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+  flex: 1;
+}
+
+.footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  gap: 8px;
+  position: sticky;
+  bottom: 0;
+  background-color: var(--background-color);
+  z-index: 10;
+}
+
+.toggle-btn,
+.reset-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  min-height: 36px;
+}
+
+.toggle-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.toggle-btn:hover {
+  background-color: #ff3742;
+  transform: translateY(-1px);
+}
+
+.toggle-btn:active {
+  transform: translateY(0);
+}
+
+.reset-btn {
+  background-color: transparent;
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+}
+
+.reset-btn:hover {
+  background-color: var(--hover-color);
+  transform: translateY(-1px);
+}
+
+.reset-btn:active {
+  transform: translateY(0);
+}
+
+/* Safari scrollbar styling */
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--background-color);
+  border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Focus states */
+.option input[type="checkbox"]:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+button:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition-duration: 0.01ms !important;
+  }
 }
