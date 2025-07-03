@@ -301,60 +301,12 @@ class CleanTube {
       }
     });
 
-    // Fix layout when entire sidebar is hidden
+    // Fix layout when entire sidebar is hidden by setting its width variables to 0
     if (this.settings['hide-entire-sidebar']) {
       css += `
-/* Fix layout when sidebar is hidden - Modern YouTube layout */
 ytd-app {
-    margin-left: 0 !important;
-}
-
-ytd-browse[page-subtype="home"] {
-    margin-left: 0 !important;
-}
-
-ytd-watch-flexy:not([fullscreen]) {
-    margin-left: 0 !important;
-}
-
-ytd-watch-flexy:not([fullscreen]) #primary.ytd-watch-flexy {
-    margin-left: 0 !important;
-    max-width: none !important;
-}
-
-#masthead-container {
-    padding-left: 16px !important;
-}
-
-/* Center home page content properly */
-ytd-two-column-browse-results-renderer {
-    display: flex !important;
-    justify-content: center !important;
-    margin: 0 auto !important;
-}
-
-ytd-rich-grid-renderer {
-    max-width: 1284px !important;
-    margin: 0 auto !important;
-}
-
-#contents.ytd-rich-grid-renderer {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
-    gap: 16px !important;
-    justify-content: center !important;
-    margin: 0 auto !important;
-    padding: 0 24px !important;
-}
-
-/* Fix browse page layout */
-ytd-browse {
-    margin-left: 0 !important;
-}
-
-/* Ensure page container is centered */
-ytd-page-manager {
-    margin-left: 0 !important;
+    --ytd-persistent-guide-width: 0px !important;
+    --ytd-mini-guide-width: 0px !important;
 }
 `;
     }
@@ -423,27 +375,6 @@ ytd-searchbox {
 /* Ensure logo positioning looks good without burger menu */
 ytd-topbar-logo-renderer {
     margin-left: 0 !important;
-}
-`;
-    }
-
-    // Fix video layout when related videos are hidden
-    if (this.settings['hide-related-videos']) {
-      css += `
-/* Fix video layout when related videos are hidden */
-ytd-watch-flexy:not([fullscreen]) #primary.ytd-watch-flexy {
-    max-width: 100% !important;
-    margin: 0 auto !important;
-}
-
-ytd-watch-flexy[flexy] #primary.ytd-watch-flexy {
-    flex: 1 !important;
-    min-width: 0 !important;
-}
-
-ytd-watch-flexy:not([theater]) #primary.ytd-watch-flexy {
-    max-width: 1280px !important;
-    padding: 0 24px !important;
 }
 `;
     }
