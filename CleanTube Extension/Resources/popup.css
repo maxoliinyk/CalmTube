@@ -153,6 +153,15 @@ body {
   transform: translateY(0);
 }
 
+/* Minimal Mode button styling when active */
+.toggle-btn.minimal-active {
+  background-color: #2ecc71;
+}
+
+.toggle-btn.minimal-active:hover {
+  background-color: #27ae60;
+}
+
 .reset-btn {
   background-color: transparent;
   color: var(--text-color);

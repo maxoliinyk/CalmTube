@@ -56,34 +56,7 @@ class CleanTube {
         'ytd-guide-section-renderer:has(a[href="/gaming"]) + hr'
       ],
       'hide-more-from-youtube': [
-        'ytd-guide-section-renderer:has(a[href*="youtubekids.com"])',
-      ],
-      'hide-shorts': [
-        // Shorts button in sidebar
-        'ytd-guide-entry-renderer:has(a[href="/shorts"])',
-        'ytd-guide-entry-renderer:has([title="Shorts"])',
-        `ytd-mini-guide-entry-renderer:has([aria-label*="Shorts"])`,
-        // Shorts feed on homepage and other pages
-        'ytd-rich-shelf-renderer:has([title*="Shorts"])',
-        'ytd-reel-shelf-renderer',
-        'ytd-rich-section-renderer:has([aria-label*="Shorts"])',
-        // Individual shorts videos
-        'ytd-video-renderer:has([aria-label*="Shorts"])',
-        'ytd-rich-item-renderer:has([aria-label*="Shorts"])',
-        // Shorts shelf containers
-        '[is-shorts]',
-        'ytd-rich-shelf-renderer[is-shorts]',
-        // Additional shorts containers
-        'ytd-reel-video-renderer',
-        'ytd-shorts-lockup-view-model',
-        // More comprehensive shorts selectors
-        'ytd-rich-item-renderer:has([href*="/shorts/"])',
-        'ytd-video-renderer:has([href*="/shorts/"])',
-        // Shorts shelves in search and other pages  
-        'ytd-shelf-renderer:has([title*="Shorts"])',
-        'ytd-horizontal-card-list-renderer:has([title*="Shorts"])',
-        // Shorts in notifications
-        'ytd-notification-renderer:has([href*="/shorts/"])'
+        'ytd-guide-section-renderer:has(a[href*="youtubekids.com"]) + hr',
       ],
 
       // Top Bar Elements
@@ -138,6 +111,33 @@ class CleanTube {
       'hide-news': [
         'ytd-rich-shelf-renderer:has([title*="News"])',
         'ytd-rich-shelf-renderer:has([title*="Breaking"])'
+      ],
+      'hide-shorts': [
+        // Shorts button in sidebar
+        'ytd-guide-entry-renderer:has(a[href="/shorts"])',
+        'ytd-guide-entry-renderer:has([title="Shorts"])',
+        `ytd-mini-guide-entry-renderer:has([aria-label*="Shorts"])`,
+        // Shorts feed on homepage and other pages
+        'ytd-rich-shelf-renderer:has([title*="Shorts"])',
+        'ytd-reel-shelf-renderer',
+        'ytd-rich-section-renderer:has([aria-label*="Shorts"])',
+        // Individual shorts videos
+        'ytd-video-renderer:has([aria-label*="Shorts"])',
+        'ytd-rich-item-renderer:has([aria-label*="Shorts"])',
+        // Shorts shelf containers
+        '[is-shorts]',
+        'ytd-rich-shelf-renderer[is-shorts]',
+        // Additional shorts containers
+        'ytd-reel-video-renderer',
+        'ytd-shorts-lockup-view-model',
+        // More comprehensive shorts selectors
+        'ytd-rich-item-renderer:has([href*="/shorts/"])',
+        'ytd-video-renderer:has([href*="/shorts/"])',
+        // Shorts shelves in search and other pages  
+        'ytd-shelf-renderer:has([title*="Shorts"])',
+        'ytd-horizontal-card-list-renderer:has([title*="Shorts"])',
+        // Shorts in notifications
+        'ytd-notification-renderer:has([href*="/shorts/"])'
       ],
 
       // Video Page Elements
@@ -229,39 +229,6 @@ class CleanTube {
         '#chat-container',
         '#chatframe',
         'ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-live-chat"]'
-      ],
-
-      // Ultra clean mode - hide everything except search and main content
-      'ultra-clean-mode': [
-        // Hide entire sidebar
-        '#guide',
-        '#guide-button',
-        '#guide-icon',
-        'ytd-mini-guide-renderer',
-
-        // Hide top bar elements except search
-        '#logo',
-        'ytd-topbar-logo-renderer',
-        '#voice-search-button',
-        '#notification-button',
-        '#create-icon',
-        '#avatar-btn',
-        'ytd-topbar-menu-button-renderer',
-
-        // Hide search filters
-        '#chips-wrapper',
-        'ytd-feed-filter-chip-bar-renderer',
-
-        // Hide video page sidebar
-        '#secondary.ytd-watch-flexy',
-
-        // Hide comments
-        'ytd-comments',
-        '#comments',
-
-        // Hide footer
-        'ytd-browse-secondary-contents-renderer',
-        '#footer'
       ]
     };
 
@@ -301,7 +268,6 @@ class CleanTube {
       }
     });
 
-    // Fix layout when entire sidebar is hidden by setting its width variables to 0
     if (this.settings['hide-entire-sidebar']) {
       css += `
 ytd-app {
@@ -311,7 +277,6 @@ ytd-app {
 `;
     }
 
-    // Fix top bar layout when elements are hidden - keep positions stable
     const hideTopElements = this.settings['hide-burger-menu'] ||
       this.settings['hide-youtube-logo'] ||
       this.settings['hide-create-button'] ||
@@ -320,7 +285,6 @@ ytd-app {
 
     if (hideTopElements) {
       css += `
-/* Keep search bar centered and maintain element positions */
 #container.ytd-masthead {
     display: flex !important;
     align-items: center !important;
@@ -350,108 +314,14 @@ ytd-app {
     align-items: center !important;
 }
 
-/* Maintain search form size */
 #search-form.ytd-masthead {
     max-width: 540px !important;
     width: 540px !important;
 }
 
-/* Keep search container centered */
 ytd-searchbox {
     max-width: 540px !important;
     width: 540px !important;
-}
-`;
-    }
-
-    // Fix layout when burger menu is hidden
-    if (this.settings['hide-burger-menu']) {
-      css += `
-/* Adjust start section spacing when burger menu is hidden */
-#start.ytd-masthead {
-    padding-left: 16px !important;
-}
-
-/* Ensure logo positioning looks good without burger menu */
-ytd-topbar-logo-renderer {
-    margin-left: 0 !important;
-}
-`;
-    }
-
-    // Ultra clean mode - truly minimal interface
-    if (this.settings['ultra-clean-mode']) {
-      css += `
-/* Ultra clean mode - only search bar visible and content centered */
-
-/* Hide all top bar elements except search */
-#start.ytd-masthead {
-    display: none !important;
-}
-
-#end.ytd-masthead {
-    display: none !important;
-}
-
-/* Center search bar in masthead */
-#container.ytd-masthead {
-    justify-content: center !important;
-    align-items: center !important;
-    padding: 0 24px !important;
-}
-
-#center.ytd-masthead {
-    flex: none !important;
-    max-width: 540px !important;
-    width: 540px !important;
-    margin: 0 !important;
-}
-
-/* Remove sidebar completely */
-ytd-app {
-    margin-left: 0 !important;
-}
-
-ytd-browse {
-    margin-left: 0 !important;
-}
-
-ytd-page-manager {
-    margin-left: 0 !important;
-}
-
-/* Center home page content */
-ytd-two-column-browse-results-renderer {
-    display: flex !important;
-    justify-content: center !important;
-    margin: 0 auto !important;
-    max-width: 1284px !important;
-}
-
-ytd-rich-grid-renderer {
-    margin: 0 auto !important;
-    max-width: 1284px !important;
-}
-
-#contents.ytd-rich-grid-renderer {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
-    gap: 16px !important;
-    justify-content: center !important;
-    margin: 0 auto !important;
-    padding: 0 24px !important;
-}
-
-/* Center video page content when in ultra clean mode */
-ytd-watch-flexy:not([fullscreen]) {
-    margin-left: 0 !important;
-    max-width: 1284px !important;
-    margin: 0 auto !important;
-}
-
-ytd-watch-flexy:not([fullscreen]) #primary.ytd-watch-flexy {
-    margin-left: 0 !important;
-    max-width: none !important;
 }
 `;
     }
@@ -501,7 +371,6 @@ ytd-watch-flexy:not([fullscreen]) #primary.ytd-watch-flexy {
     const observer = new MutationObserver(() => {
       if (location.href !== lastUrl) {
         lastUrl = location.href;
-        // Small delay to ensure new content is loaded
         setTimeout(() => {
           this.applyStyles();
         }, 500);

@@ -98,8 +98,7 @@ class CleanTubeBackground {
 
       // Miscellaneous
       'hide-voice-search': false,
-      'hide-live-chat': false,
-      'ultra-clean-mode': false
+      'hide-live-chat': false
     };
 
     try {
@@ -132,7 +131,7 @@ class CleanTubeBackground {
         'hide-save-button', 'hide-more-actions', 'hide-subscribe-button',
 
         // Miscellaneous
-        'hide-voice-search', 'hide-live-chat', 'ultra-clean-mode'
+        'hide-voice-search', 'hide-live-chat'
       ];
 
       const settings = await browser.storage.sync.get(keys);

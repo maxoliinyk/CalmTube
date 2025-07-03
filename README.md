@@ -19,8 +19,9 @@ A lightweight Safari extension that removes distracting elements from YouTube fo
 **Video Page** 
 - Clean video viewing by hiding related videos, comments, descriptions
 
-**Ultra Minimal Mode**
+**Minimal Mode**
 - Transform YouTube into a distraction-free experience with one click
+- Remembers your previous settings
 
 ## Simple & Lightweight
 

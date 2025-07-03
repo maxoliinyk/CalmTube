@@ -16,6 +16,7 @@ class CleanTubePopup {
       'hide-burger-menu',
       'hide-youtube-logo',
       'hide-search-bar',
+      'hide-voice-search',
       'hide-search-filters',
       'hide-create-button',
       'hide-notifications',
@@ -28,6 +29,7 @@ class CleanTubePopup {
 
       // Video page elements
       'hide-related-videos',
+      'hide-live-chat',
       'hide-comments',
       'hide-video-suggestions',
       'hide-video-description',
@@ -38,12 +40,26 @@ class CleanTubePopup {
       'hide-clip-button',
       'hide-save-button',
       'hide-more-actions',
-      'hide-subscribe-button',
+      'hide-subscribe-button'
+    ];
 
-      // Miscellaneous
-      'hide-voice-search',
+    // Define which options Minimal Mode should activate
+    this.minimalModeOptions = [
+      'hide-entire-sidebar',
+      'hide-burger-menu',
+      'hide-youtube-logo',
+      'hide-create-button',
+      'hide-notifications',
+      'hide-profile-menu',
+      'hide-search-filters',
+      'hide-related-videos',
+      'hide-comments',
+      'hide-video-suggestions',
+      'hide-share-button',
+      'hide-clip-button',
+      'hide-more-actions',
       'hide-live-chat',
-      'ultra-clean-mode'
+      'hide-voice-search'
     ];
 
     this.init();
@@ -66,9 +82,32 @@ class CleanTubePopup {
           checkbox.checked = result[option] || false;
         }
       });
+
+      this.updateMinimalModeButton();
     } catch (error) {
       console.error('Error loading settings:', error);
     }
+  }
+
+  updateMinimalModeButton() {
+    const minimalModeBtn = document.getElementById('minimal-mode-btn');
+
+    if (minimalModeBtn) {
+      if (this.isMinimalModeActive()) {
+        minimalModeBtn.classList.add('minimal-active');
+        minimalModeBtn.textContent = 'Exit Minimal';
+      } else {
+        minimalModeBtn.classList.remove('minimal-active');
+        minimalModeBtn.textContent = 'Minimal Mode';
+      }
+    }
+  }
+
+  isMinimalModeActive() {
+    return this.minimalModeOptions.every(option => {
+      const checkbox = document.getElementById(option);
+      return checkbox && checkbox.checked;
+    });
   }
 
   async saveSettings() {
@@ -126,15 +165,16 @@ class CleanTubePopup {
           }
 
           this.saveSettings();
+          this.updateMinimalModeButton();
         });
       }
     });
 
-    // Toggle All button
-    const toggleAllBtn = document.getElementById('toggle-all');
-    if (toggleAllBtn) {
-      toggleAllBtn.addEventListener('click', () => {
-        this.toggleAll();
+    // Minimal Mode button
+    const minimalModeBtn = document.getElementById('minimal-mode-btn');
+    if (minimalModeBtn) {
+      minimalModeBtn.addEventListener('click', () => {
+        this.toggleMinimalMode();
       });
     }
 
@@ -164,6 +204,61 @@ class CleanTubePopup {
     });
   }
 
+  async toggleMinimalMode() {
+    const isCurrentlyMinimal = this.isMinimalModeActive();
+
+    if (!isCurrentlyMinimal) {
+      await this.storePreMinimalSettings();
+      this.activateMinimalMode();
+    } else {
+      await this.restorePreMinimalSettings();
+    }
+
+    this.updateMinimalModeButton();
+    await this.saveSettings();
+  }
+
+  async storePreMinimalSettings() {
+    try {
+      const preMinimalSettings = {};
+      this.minimalModeOptions.forEach(option => {
+        const checkbox = document.getElementById(option);
+        if (checkbox) {
+          preMinimalSettings[option] = checkbox.checked;
+        }
+      });
+
+      await browser.storage.sync.set({ 'pre-minimal-settings': preMinimalSettings });
+    } catch (error) {
+      console.error('Error storing pre-minimal settings:', error);
+    }
+  }
+
+  async restorePreMinimalSettings() {
+    try {
+      const result = await browser.storage.sync.get(['pre-minimal-settings']);
+      const preMinimalSettings = result['pre-minimal-settings'] || {};
+
+      this.minimalModeOptions.forEach(option => {
+        const checkbox = document.getElementById(option);
+        if (checkbox) {
+          checkbox.checked = preMinimalSettings[option] || false;
+        }
+      });
+    } catch (error) {
+      console.error('Error restoring pre-minimal settings:', error);
+    }
+  }
+
+  activateMinimalMode() {
+    this.minimalModeOptions.forEach(option => {
+      const checkbox = document.getElementById(option);
+      if (checkbox) {
+        checkbox.checked = true;
+      }
+    });
+  }
+
   saveScrollPosition() {
     try {
       const scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
@@ -189,19 +284,6 @@ class CleanTubePopup {
     }
   }
 
-  toggleAll() {
-    const checkboxes = this.options.map(option => document.getElementById(option));
-    const allChecked = checkboxes.every(checkbox => checkbox && checkbox.checked);
-
-    checkboxes.forEach(checkbox => {
-      if (checkbox) {
-        checkbox.checked = !allChecked;
-      }
-    });
-
-    this.saveSettings();
-  }
-
   async resetAll() {
     this.options.forEach(option => {
       const checkbox = document.getElementById(option);
@@ -210,6 +292,7 @@ class CleanTubePopup {
       }
     });
 
+    this.updateMinimalModeButton();
     await this.saveSettings();
   }
 }
