@@ -56,20 +56,13 @@ class CleanTube {
         'ytd-guide-section-renderer:has(a[href="/gaming"]) + hr'
       ],
       'hide-more-from-youtube': [
-        /* Hide "More from YouTube" section*/
-        'ytd-guide-section-renderer:has(a[href*="studio.youtube.com"])',
-        'ytd-guide-section-renderer:has(a[href*="studio.youtube.com"]) + hr',
-
-        /* Collapsed-sidebar (mini guide) icons for Studio / Kids / Premium / TV */
-        'ytd-mini-guide-entry-renderer:has(a[href*="studio.youtube.com"])',
-        'ytd-mini-guide-entry-renderer:has(a[href*="youtubekids.com"])',
-        'ytd-mini-guide-entry-renderer:has(a[href*="youtube.com/premium"])',
-        'ytd-mini-guide-entry-renderer:has(a[href*="tv.youtube.com"])'
+        'ytd-guide-section-renderer:has(a[href*="youtubekids.com"])',
       ],
       'hide-shorts': [
         // Shorts button in sidebar
         'ytd-guide-entry-renderer:has(a[href="/shorts"])',
         'ytd-guide-entry-renderer:has([title="Shorts"])',
+        `ytd-mini-guide-entry-renderer:has([aria-label*="Shorts"])`,
         // Shorts feed on homepage and other pages
         'ytd-rich-shelf-renderer:has([title*="Shorts"])',
         'ytd-reel-shelf-renderer',
