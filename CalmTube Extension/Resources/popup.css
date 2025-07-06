@@ -216,6 +216,20 @@ body {
   flex: 1;
 }
 
+.option.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.option.disabled input[type="checkbox"] {
+  cursor: not-allowed;
+}
+
+.option.disabled span {
+  cursor: not-allowed;
+  color: var(--border-color);
+}
+
 /* Footer */
 .footer {
   padding: 16px 20px;

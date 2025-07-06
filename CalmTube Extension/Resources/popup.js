@@ -79,6 +79,10 @@ class CalmTubePopup {
     this.updateMinimalModeButton();
     this.updateExtensionToggle();
     this.showTab(this.activeTab);
+
+    // Update initial state of sidebar and topbar options
+    this.updateSidebarOptionsState(this.currentSettings['hide-entire-sidebar']);
+    this.updateTopBarOptionsState(this.currentSettings['hide-entire-topbar']);
   }
 
   setupEventListeners() {
@@ -182,25 +186,13 @@ class CalmTubePopup {
     try {
       // Handle toggle behavior for hide-entire-sidebar
       if (option === 'hide-entire-sidebar') {
-        if (checked) {
-          // Store current sidebar settings before hiding all
-          await this.storePreSidebarSettings();
-          this.activateHideSidebar();
-        } else {
-          // Restore previous sidebar settings
-          await this.restorePreSidebarSettings();
-        }
+        this.currentSettings[option] = checked;
+        this.updateSidebarOptionsState(checked);
       }
       // Handle toggle behavior for hide-entire-topbar
       else if (option === 'hide-entire-topbar') {
-        if (checked) {
-          // Store current topbar settings before hiding all
-          await this.storePreTopBarSettings();
-          this.activateHideTopBar();
-        } else {
-          // Restore previous topbar settings
-          await this.restorePreTopBarSettings();
-        }
+        this.currentSettings[option] = checked;
+        this.updateTopBarOptionsState(checked);
       }
       // Handle other options normally
       else {
@@ -307,89 +299,33 @@ class CalmTubePopup {
     });
   }
 
-  // Sidebar toggle methods
-  async storePreSidebarSettings() {
-    const preSidebarSettings = {};
+  // Sidebar state management
+  updateSidebarOptionsState(isHidden) {
     this.sidebarOptions.forEach(option => {
-      preSidebarSettings[option] = this.currentSettings[option];
-    });
-    await browser.storage.sync.set({ preSidebarSettings });
-  }
-
-  async restorePreSidebarSettings() {
-    try {
-      const result = await browser.storage.sync.get('preSidebarSettings');
-
-      if (result.preSidebarSettings) {
-        this.sidebarOptions.forEach(option => {
-          const value = result.preSidebarSettings[option] || false;
-          this.currentSettings[option] = value;
-
-          const checkbox = document.getElementById(option);
-          if (checkbox) checkbox.checked = value;
-        });
-      }
-
-      // Also uncheck the hide-entire-sidebar option
-      this.currentSettings['hide-entire-sidebar'] = false;
-      const sidebarCheckbox = document.getElementById('hide-entire-sidebar');
-      if (sidebarCheckbox) sidebarCheckbox.checked = false;
-
-    } catch (error) {
-      console.error('Error restoring pre-sidebar settings:', error);
-    }
-  }
-
-  activateHideSidebar() {
-    // Enable hide-entire-sidebar and all sidebar options
-    this.currentSettings['hide-entire-sidebar'] = true;
-    this.sidebarOptions.forEach(option => {
-      this.currentSettings[option] = true;
       const checkbox = document.getElementById(option);
-      if (checkbox) checkbox.checked = true;
-    });
-  }
-
-  // Top bar toggle methods
-  async storePreTopBarSettings() {
-    const preTopBarSettings = {};
-    this.topBarOptions.forEach(option => {
-      preTopBarSettings[option] = this.currentSettings[option];
-    });
-    await browser.storage.sync.set({ preTopBarSettings });
-  }
-
-  async restorePreTopBarSettings() {
-    try {
-      const result = await browser.storage.sync.get('preTopBarSettings');
-
-      if (result.preTopBarSettings) {
-        this.topBarOptions.forEach(option => {
-          const value = result.preTopBarSettings[option] || false;
-          this.currentSettings[option] = value;
-
-          const checkbox = document.getElementById(option);
-          if (checkbox) checkbox.checked = value;
-        });
+      if (checkbox) {
+        checkbox.disabled = isHidden;
+        // Update visual styling for disabled state
+        const optionElement = checkbox.closest('.option');
+        if (optionElement) {
+          optionElement.classList.toggle('disabled', isHidden);
+        }
       }
-
-      // Also uncheck the hide-entire-topbar option
-      this.currentSettings['hide-entire-topbar'] = false;
-      const topbarCheckbox = document.getElementById('hide-entire-topbar');
-      if (topbarCheckbox) topbarCheckbox.checked = false;
-
-    } catch (error) {
-      console.error('Error restoring pre-topbar settings:', error);
-    }
+    });
   }
 
-  activateHideTopBar() {
-    // Enable hide-entire-topbar and all top bar options
-    this.currentSettings['hide-entire-topbar'] = true;
+  // Top bar state management
+  updateTopBarOptionsState(isHidden) {
     this.topBarOptions.forEach(option => {
-      this.currentSettings[option] = true;
       const checkbox = document.getElementById(option);
-      if (checkbox) checkbox.checked = true;
+      if (checkbox) {
+        checkbox.disabled = isHidden;
+        // Update visual styling for disabled state
+        const optionElement = checkbox.closest('.option');
+        if (optionElement) {
+          optionElement.classList.toggle('disabled', isHidden);
+        }
+      }
     });
   }
 
@@ -438,7 +374,7 @@ class CalmTubePopup {
       this.extensionEnabled = true;
 
       await browser.storage.sync.set(resetSettings);
-      await browser.storage.sync.remove(['preMinimalSettings', 'preSidebarSettings', 'preTopBarSettings']);
+      await browser.storage.sync.remove('preMinimalSettings');
 
       this.updateUI();
       await this.applySettingsToCurrentTab();
@@ -451,6 +387,10 @@ class CalmTubePopup {
   updateUI() {
     this.updateMinimalModeButton();
     this.updateExtensionToggle();
+
+    // Update disabled states
+    this.updateSidebarOptionsState(this.currentSettings['hide-entire-sidebar']);
+    this.updateTopBarOptionsState(this.currentSettings['hide-entire-topbar']);
   }
 }
 
