@@ -4,41 +4,70 @@ A lightweight Safari extension that removes distracting elements from YouTube fo
 
 ## Features
 
-**Sidebar Management**
-- Hide entire sidebar, subscriptions, explore sections, or specific elements
+### Sidebar Controls
+- **Hide Sidebar** - Remove the entire left sidebar
+- **Hide Shorts** - Remove YouTube Shorts from all pages
+- **Hide "You" Section** - History, Watch Later, Library
+- **Hide Subscriptions** - Your subscriptions list
+- **Hide Explore Section** - Trending, Gaming, etc.
+- **Hide "More from YouTube"** - Additional YouTube services
+- **Hide Settings & Help** - Settings, Help, etc.
+- **Hide Footer Links** - Bottom sidebar links
 
-**Top Bar Cleanup** 
-- Remove YouTube logo, create button, notifications, profile menu, search bar
+### Top Bar Controls  
+- **Hide Top Bar**
+- **Hide Menu Button**
+- **Hide YouTube Logo**
+- **Hide Search Bar**
+- **Hide Voice Search**
+- **Hide Filter Chips**
+- **Hide Create Button**
+- **Hide Notifications**
+- **Hide Profile Menu**
 
-**Video Interactions**
-- Hide like/dislike, share, clip, save, subscribe buttons
+### Homepage Controls
+- **Hide Recommendations** - Suggested videos feed
+- **Hide Trending**
+- **Hide News Section**
 
-**Content Filtering**
-- Remove recommendations, shorts feed, trending, news sections
+### Video Page Controls
 
-**Video Page** 
-- Clean video viewing by hiding related videos, comments, descriptions
+**Video Elements:**
+- **Hide Related Videos**
+- **Hide Live Chat**
+- **Hide Comments**
+- **Hide End Screens**
+- **Hide Description**
 
-**Minimal Mode**
-- Transform YouTube into a distraction-free experience with one click
-- Remembers your previous settings
+**Video Actions:**
+- **Hide Like/Dislike**
+- **Hide Share Button**
+- **Hide Clip Button**
+- **Hide Save Button**
+- **Hide More Actions**
+- **Hide Subscribe Button**
+
+### Quick Actions
+- **Minimal Mode** - One-click distraction-free preset
+- **Reset All** - Restore default settings
+- **Extension Toggle** - Enable/disable CalmTube instantly
 
 ## Simple & Lightweight
 
 - **Instant changes** - CSS injection applies immediately without page refresh
-- **Memory efficient** - No DOM manipulation, just CSS rules
-- **Works with YouTube navigation** - No page reloads needed
+- **Memory efficient** - No DOM manipulation, just CSS rules  
+- **Privacy-focused** - Zero data collection, no tracking
 
 ## Installation
 
-### Option 1: App Store (Recommended)
-*Coming soon - paid version with automatic updates*
+### Option 1: Mac App Store
+Coming soon.
 
-### Option 2: Build Yourself (Free)
+### Option 2: Build Yourself
 **Requirements:**
-- **Xcode** (from Mac App Store)
+- **Xcode**
 - **macOS 12.3+** (Monterey or newer)
-- **Safari 15.4+** (for CSS `:has()` selector support)
+- **Safari 15.4+**
 - **Safari Developer settings**: Safari → Preferences → Advanced → Show Develop menu → Allow Unsigned Extensions
 
 **Steps:**
@@ -52,41 +81,42 @@ A lightweight Safari extension that removes distracting elements from YouTube fo
 
 1. Visit YouTube in Safari
 2. Click the CalmTube icon in Safari's toolbar
-3. Toggle options to hide distracting elements
-4. Settings are saved automatically and persist across 
-browser sessions
+3. Toggle individual options or use **Minimal Mode** for instant focus
+4. Settings save automatically and persist across browser sessions
 
-## Privacy
+*📸 Screenshots coming soon!*
 
-- **Zero data collection**
-- **No network requests**  
-- **No tracking or analytics**
-Settings stored locally using Safari's secure storage
+## Open Source & Contributing
 
-## Contributing
+CalmTube is MIT Licensed and welcomes contributions! 
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for details on adding new filters, testing, and submitting changes.
+**Ways to contribute:**
+- [Report bugs](https://github.com/maxoliinyk/calmtube/issues)
+- [Request features](https://github.com/maxoliinyk/calmtube/discussions)  
+- Submit pull requests for improvements
+- Star the repository to show support
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup and guidelines.
+
+## Future Plans
+
+- **Cross-browser support** - Planned Chrome and Firefox extensions
+- **Custom themes** - User-defined CSS rules
+- **Mobile Safari** - iOS extension support
+- **Sync settings** - Cross-device configuration sync
 
 ## Support
 
-- [Report bugs](https://github.com/maxoliinyk/calmtube/issues)
-- [Request features](https://github.com/maxoliinyk/calmtube/discussions)
-
-## Support Development
-
-If CalmTube makes your YouTube experience better, 
-consider:
-- Starring this repository
-- Sharing with friends who hate YouTube clutter
-- Reporting bugs and suggesting features
-- Contributing code improvements
+- [Report Issues](https://github.com/maxoliinyk/calmtube/issues)
+- [Feature Discussions](https://github.com/maxoliinyk/calmtube/discussions)
+- [View Source Code](https://github.com/maxoliinyk/calmtube)
 
 ## Known Issues
 
-- The "Hide More from YouTube" option may also hide main sidebar buttons like Home, Subscriptions, Shorts, and YouTube Music.
+...
 
 ---
 
-Made for a calmer YouTube experience.
+**Made for a calmer YouTube experience.**
 
-CalmTube is not affiliated with YouTube or Google. YouTube is a trademark of Google Inc. 
+*CalmTube is not affiliated with YouTube or Google. YouTube is a trademark of Google Inc.* 
