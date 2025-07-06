@@ -1,15 +1,15 @@
 :root {
   color-scheme: light dark;
-  --primary-color: #ff4757;
+  --primary-color: #7B68EE;
   --secondary-color: #2f3542;
   --background-color: #ffffff;
   --text-color: #2f3640;
   --border-color: #e1e5e9;
   --hover-color: #f8f9fa;
-  --success-color: #2ecc71;
-  --danger-color: #dc3545;
-  --minimal-color: #6c5ce7;
-  --minimal-hover: #5b4cdb;
+  --success-color: #52C41A;
+  --danger-color: #FF7875;
+  --minimal-color: #36CFC9;
+  --minimal-hover: #13C2C2;
   --tab-background: #f8f9fa;
   --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
@@ -22,9 +22,9 @@
     --hover-color: #2a2a2a;
     --tab-background: #2a2a2a;
     --secondary-color: #ffffff;
-    --danger-color: #e74c3c;
-    --minimal-color: #74b9ff;
-    --minimal-hover: #0984e3;
+    --danger-color: #FF7875;
+    --minimal-color: #36CFC9;
+    --minimal-hover: #13C2C2;
   }
 }
 
@@ -50,7 +50,7 @@ body {
 /* Header */
 .header {
   padding: 16px 20px 12px;
-  background: linear-gradient(135deg, var(--primary-color), #ff3742);
+  background: linear-gradient(135deg, var(--primary-color), #9575CD);
   color: white;
   display: flex;
   justify-content: space-between;
@@ -97,7 +97,7 @@ body {
 }
 
 .status-btn.disabled .status-indicator {
-  background: #bdc3c7;
+  background: #ff0909;
 }
 
 .status-btn.disabled {
@@ -256,7 +256,7 @@ body {
 }
 
 .minimal-btn.active:hover {
-  background: #27ae60;
+  background: #389E0D;
 }
 
 .reset-btn {
@@ -266,10 +266,10 @@ body {
 }
 
 .reset-btn:hover {
-  background: #c82333;
-  border-color: #c82333;
+  background: #FF4D4F;
+  border-color: #FF4D4F;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+  box-shadow: 0 4px 12px rgba(255, 120, 117, 0.3);
 }
 
 .action-btn:active {
@@ -375,7 +375,7 @@ body {
 }
 
 .confirm-btn:hover {
-  background: #c82333;
+  background: #FF4D4F;
 }
 
 /* Scrollbar */
