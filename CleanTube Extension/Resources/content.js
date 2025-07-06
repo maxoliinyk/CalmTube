@@ -1,18 +1,11 @@
-browser.runtime.sendMessage({ greeting: "hello" }).then((response) => {
-  console.log("Received response: ", response);
-});
-
-browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  console.log("Received request: ", request);
-});
-
-// CleanTube Content Script - Lightweight YouTube Element Hider
 class CleanTube {
   constructor() {
     this.styleId = 'cleantube-styles';
     this.settings = {};
+    this.extensionEnabled = true;
+    this.observer = null;
+    this.debounceTimer = null;
 
-    // Precise CSS selectors for different YouTube elements
     this.selectors = {
       // Sidebar Management
       'hide-entire-sidebar': [
@@ -20,100 +13,83 @@ class CleanTube {
         'ytd-mini-guide-renderer',
         '#guide-content',
         'tp-yt-app-drawer#guide',
-        '#guide-button',
-        '#guide-icon'
+        '#guide-button'
       ],
       'hide-you-section': [
-        // Target ONLY the collapsible "You" section container
-        '#guide #items > ytd-guide-collapsible-section-entry-renderer',
         '#guide ytd-guide-collapsible-section-entry-renderer',
-        // Target individual "You" section items directly (safer)
-        '#guide ytd-guide-entry-renderer:has(a[href="/feed/history"])',
-        '#guide ytd-guide-entry-renderer:has(a[href="/playlist?list=WL"])',
-        '#guide ytd-guide-entry-renderer:has(a[href="/feed/library"])',
-        '#guide ytd-guide-entry-renderer:has(a[href="/feed/downloads"])',
-        '#guide ytd-guide-entry-renderer:has([title="History"])',
-        '#guide ytd-guide-entry-renderer:has([title="Watch Later"])',
-        '#guide ytd-guide-entry-renderer:has([title="Liked videos"])',
-        '#guide ytd-guide-entry-renderer:has([title="Your videos"])'
+        '#guide ytd-guide-entry-renderer:has(a[href*="/feed/history"])',
+        '#guide ytd-guide-entry-renderer:has(a[href*="/playlist?list=WL"])',
+        '#guide ytd-guide-entry-renderer:has(a[href*="/feed/library"])'
       ],
       'hide-subscriptions-section': [
-        // Target the subscriptions section completely
         '#sections > ytd-guide-section-renderer:has(ytd-guide-collapsible-entry-renderer)',
         '#guide > ytd-guide-section-renderer:has(ytd-guide-collapsible-entry-renderer)',
-        // Target the collapsible subscriptions container directly
         '#sections ytd-guide-collapsible-entry-renderer',
         '#guide ytd-guide-collapsible-entry-renderer'
       ],
       'hide-explore-section': [
-        // Hide the entire "Explore" guide section (title + all items + divider)
         'ytd-guide-section-renderer:has(a[href^="/feed/trending"])',
         'ytd-guide-section-renderer:has(a[href="/gaming"])',
-        'ytd-guide-section-renderer:has(a[href="/live"])',
-        'ytd-mini-guide-entry-renderer:has(a[href="/explore"])',
-        // Divider following the section
-        'ytd-guide-section-renderer:has(a[href^="/feed/trending"]) + hr',
-        'ytd-guide-section-renderer:has(a[href="/gaming"]) + hr'
+        'ytd-mini-guide-entry-renderer:has(a[href="/explore"])'
       ],
       'hide-more-from-youtube': [
-        'ytd-guide-section-renderer:has(a[href*="youtubekids.com"]) + hr',
+        'ytd-guide-section-renderer:has(a[href*="youtubekids.com"])'
+      ],
+      'hide-sidebar-footer': [
+        '#guide ytd-guide-entry-renderer:has(a[href*="/account"])',
+        '#guide ytd-guide-entry-renderer:has(a[href*="/reporthistory"])',
+      ],
+      'hide-footer': [
+        'ytd-browse-secondary-contents-renderer',
+        '#footer'
       ],
 
       // Top Bar Elements
       'hide-burger-menu': [
         '#guide-button',
-        'button#guide-button',
-        'ytd-topbar-menu-button-renderer[aria-label*="Guide"]',
-        'button[aria-label*="Guide"]'
+        'button#guide-button'
       ],
       'hide-youtube-logo': [
         '#logo',
-        'ytd-topbar-logo-renderer',
-        '#masthead-logo',
-        'a#logo'
+        'ytd-topbar-logo-renderer'
       ],
       'hide-search-bar': [
         '#center.ytd-masthead',
         '#search-form',
         'ytd-searchbox'
       ],
+      'hide-voice-search': [
+        '#voice-search-button'
+      ],
       'hide-search-filters': [
         '#chips-wrapper',
-        'ytd-feed-filter-chip-bar-renderer',
-        'yt-chip-cloud-renderer'
+        'ytd-feed-filter-chip-bar-renderer'
       ],
       'hide-create-button': [
         '#create-icon',
-        'ytd-topbar-menu-button-renderer[aria-label*="Create"]',
         'button[aria-label*="Create"]'
       ],
       'hide-notifications': [
         '#notification-button',
-        'ytd-notification-topbar-button-renderer',
         'button[aria-label*="Notifications"]'
       ],
       'hide-profile-menu': [
         '#avatar-btn',
-        'ytd-topbar-menu-button-renderer:has(button#avatar-btn)',
         'button#avatar-btn'
       ],
 
       // Home Page Content
       'hide-recommendations': [
         'ytd-rich-grid-renderer #contents',
-        'ytd-rich-item-renderer',
-        'ytd-video-renderer'
+        'ytd-rich-item-renderer'
       ],
       'hide-trending': [
-        'ytd-rich-shelf-renderer:has([title*="Trending"])',
-        'ytd-rich-section-renderer:has([title*="Trending"])'
+        'ytd-rich-shelf-renderer:has([title*="Trending"])'
       ],
       'hide-news': [
-        'ytd-rich-shelf-renderer:has([title*="News"])',
-        'ytd-rich-shelf-renderer:has([title*="Breaking"])'
+        'ytd-rich-shelf-renderer:has([title*="News"])'
       ],
       'hide-shorts': [
-        // Shorts button in sidebar
         'ytd-guide-entry-renderer:has(a[href="/shorts"])',
         'ytd-guide-entry-renderer:has([title="Shorts"])',
         `ytd-mini-guide-entry-renderer:has([aria-label*="Shorts"])`,
@@ -144,13 +120,16 @@ class CleanTube {
       'hide-related-videos': [
         '#secondary.ytd-watch-flexy'
       ],
+      'hide-live-chat': [
+        'ytd-live-chat-frame',
+        '#chat-container'
+      ],
       'hide-comments': [
         'ytd-comments',
         '#comments'
       ],
       'hide-video-suggestions': [
         '.ytp-ce-element',
-        '.ytp-cards-teaser',
         '.ytp-endscreen-content'
       ],
       'hide-video-description': [
@@ -158,7 +137,7 @@ class CleanTube {
         '#description'
       ],
 
-      // Video Interaction Buttons - Modern selectors
+      // Video Interaction Buttons
       'hide-like-dislike': [
         'ytd-segmented-like-dislike-button-renderer',
         '#top-level-buttons-computed ytd-segmented-like-dislike-button-renderer',
@@ -192,43 +171,7 @@ class CleanTube {
       ],
       'hide-subscribe-button': [
         'ytd-subscribe-button-renderer',
-        '#subscribe-button',
-        'paper-button#subscribe-button'
-      ],
-
-      // Sidebar footer section  
-      'hide-sidebar-footer': [
-        // Target individual footer items directly (safer approach)
-        '#guide ytd-guide-entry-renderer:has(a[href*="/account"])',
-        '#guide ytd-guide-entry-renderer:has(a[href*="support.google.com"])',
-        '#guide ytd-guide-entry-renderer:has(a[href*="feedback"])',
-        '#guide ytd-guide-entry-renderer:has([title="Settings"])',
-        '#guide ytd-guide-entry-renderer:has([title="Help"])',
-        '#guide ytd-guide-entry-renderer:has([title="Send feedback"])',
-        '#guide ytd-guide-entry-renderer:has([title="Report history"])',
-        '#sections ytd-guide-entry-renderer:has(a[href*="/account"])',
-        '#sections ytd-guide-entry-renderer:has(a[href*="support.google.com"])',
-        '#sections ytd-guide-entry-renderer:has(a[href*="feedback"])',
-        '#sections ytd-guide-entry-renderer:has([title="Settings"])',
-        '#sections ytd-guide-entry-renderer:has([title="Help"])',
-        '#sections ytd-guide-entry-renderer:has([title="Send feedback"])',
-        '#sections ytd-guide-entry-renderer:has([title="Report history"])'
-      ],
-      'hide-footer': [
-        'ytd-browse-secondary-contents-renderer',
-        '#footer'
-      ],
-
-      // Miscellaneous
-      'hide-voice-search': [
-        '#voice-search-button',
-        '.ytd-voice-search-button-renderer'
-      ],
-      'hide-live-chat': [
-        'ytd-live-chat-frame',
-        '#chat-container',
-        '#chatframe',
-        'ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-live-chat"]'
+        '#subscribe-button'
       ]
     };
 
@@ -236,105 +179,85 @@ class CleanTube {
   }
 
   async init() {
-    await this.loadSettings();
-    this.applyStyles();
-    this.setupMessageListener();
-    this.observeNavigation();
-    console.log('CleanTube content script initialized');
+    try {
+      await this.loadSettings();
+      this.applyStyles();
+      this.setupMessageListener();
+      this.observeNavigation();
+      console.log('CleanTube content script initialized');
+    } catch (error) {
+      console.error('CleanTube initialization error:', error);
+    }
   }
 
   async loadSettings() {
     try {
-      const options = Object.keys(this.selectors);
-      const result = await browser.storage.sync.get(options);
+      const keys = [...Object.keys(this.selectors), 'extensionEnabled'];
+      const result = await browser.storage.sync.get(keys);
+
       this.settings = result;
+      this.extensionEnabled = result.extensionEnabled !== false;
     } catch (error) {
       console.error('CleanTube: Error loading settings:', error);
       this.settings = {};
+      this.extensionEnabled = true;
     }
   }
 
   generateCSS() {
-    let css = '/* CleanTube - Generated Styles */\n';
+    if (!this.extensionEnabled) {
+      return '/* CleanTube - Extension Disabled */';
+    }
 
-    // Apply basic hiding rules
-    Object.keys(this.settings).forEach(setting => {
-      if (this.settings[setting] && this.selectors[setting]) {
-        const selectors = this.selectors[setting];
-        css += `/* ${setting} */\n`;
-        css += `${selectors.join(',\n')} {\n`;
-        css += '    display: none !important;\n';
-        css += '}\n\n';
+    let css = '/* CleanTube - Active */\n';
+
+    // Generate hiding rules efficiently
+    Object.entries(this.settings).forEach(([setting, enabled]) => {
+      if (enabled && this.selectors[setting]) {
+        css += `${this.selectors[setting].join(', ')} { display: none !important; }\n`;
       }
     });
 
+    // Layout optimizations
     if (this.settings['hide-entire-sidebar']) {
       css += `
 ytd-app {
-    --ytd-persistent-guide-width: 0px !important;
-    --ytd-mini-guide-width: 0px !important;
+  --ytd-persistent-guide-width: 0px !important;
+  --ytd-mini-guide-width: 0px !important;
 }
 `;
     }
 
-    const hideTopElements = this.settings['hide-burger-menu'] ||
-      this.settings['hide-youtube-logo'] ||
-      this.settings['hide-create-button'] ||
-      this.settings['hide-notifications'] ||
-      this.settings['hide-profile-menu'];
+    // Top bar layout fixes
+    const hasTopBarChanges = [
+      'hide-burger-menu',
+      'hide-youtube-logo',
+      'hide-create-button',
+      'hide-notifications',
+      'hide-profile-menu'
+    ].some(key => this.settings[key]);
 
-    if (hideTopElements) {
+    if (hasTopBarChanges) {
       css += `
-#container.ytd-masthead {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    max-width: none !important;
+#container.ytd-masthead { 
+  display: flex !important; 
+  align-items: center !important; 
 }
-
-#start.ytd-masthead {
-    flex: 0 0 169px !important;
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: center !important;
+#center.ytd-masthead { 
+  flex: 1 !important; 
+  max-width: 728px !important; 
+  margin: 0 40px !important; 
 }
-
-#center.ytd-masthead {
-    flex: 1 !important;
-    max-width: 728px !important;
-    margin: 0 40px !important;
-    display: flex !important;
-    justify-content: center !important;
-}
-
-#end.ytd-masthead {
-    flex: 0 0 225px !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-}
-
-#search-form.ytd-masthead {
-    max-width: 540px !important;
-    width: 540px !important;
-}
-
-ytd-searchbox {
-    max-width: 540px !important;
-    width: 540px !important;
+#search-form.ytd-masthead, ytd-searchbox { 
+  max-width: 540px !important; 
+  width: 540px !important; 
 }
 `;
     }
 
     css += `
-/* General improvements */
-.cleantube-active {
-    /* Extension is active */
-}
-
-/* Smooth transitions */
-* {
-    transition: opacity 0.2s ease !important;
+body.cleantube-active * { 
+  transition: opacity 0.2s ease !important; 
 }
 `;
 
@@ -342,62 +265,138 @@ ytd-searchbox {
   }
 
   applyStyles() {
+    // Remove existing styles
     const existingStyle = document.getElementById(this.styleId);
     if (existingStyle) {
       existingStyle.remove();
     }
 
+    // Apply new styles
     const style = document.createElement('style');
     style.id = this.styleId;
     style.textContent = this.generateCSS();
 
     (document.head || document.documentElement).appendChild(style);
-    document.body.classList.add('cleantube-active');
+
+    // Add/remove body class based on extension state
+    document.body.classList.toggle('cleantube-active', this.extensionEnabled);
   }
 
   setupMessageListener() {
     browser.runtime.onMessage.addListener((message, sender, sendResponse) => {
       if (message.action === 'updateSettings') {
-        this.settings = message.settings;
-        this.applyStyles();
+        this.settings = message.settings || {};
+        this.extensionEnabled = message.extensionEnabled !== false;
+
+        // Debounce style application for better performance
+        this.debounceStyleUpdate();
+
         sendResponse({ success: true });
       }
     });
   }
 
+  debounceStyleUpdate() {
+    if (this.debounceTimer) {
+      clearTimeout(this.debounceTimer);
+    }
+
+    this.debounceTimer = setTimeout(() => {
+      this.applyStyles();
+    }, 100);
+  }
+
   observeNavigation() {
     let lastUrl = location.href;
 
-    const observer = new MutationObserver(() => {
+    // Clean up existing observer
+    if (this.observer) {
+      this.observer.disconnect();
+    }
+
+    // Optimized mutation observer with throttling
+    this.observer = new MutationObserver((mutations) => {
+      // Check if URL changed (YouTube SPA navigation)
       if (location.href !== lastUrl) {
         lastUrl = location.href;
-        setTimeout(() => {
-          this.applyStyles();
-        }, 500);
+        this.debounceStyleUpdate();
+        return;
+      }
+
+      // Only react to significant DOM changes
+      const hasSignificantChanges = mutations.some(mutation =>
+        mutation.type === 'childList' &&
+        mutation.addedNodes.length > 0 &&
+        Array.from(mutation.addedNodes).some(node =>
+          node.nodeType === Node.ELEMENT_NODE &&
+          (node.tagName?.startsWith('YTD-') || node.id || node.className)
+        )
+      );
+
+      if (hasSignificantChanges) {
+        this.debounceStyleUpdate();
       }
     });
 
-    observer.observe(document.body, {
+    this.observer.observe(document.body, {
       childList: true,
-      subtree: true
+      subtree: true,
+      attributes: false, // Reduce observation scope for better performance
+      characterData: false
     });
 
-    window.addEventListener('popstate', () => {
-      setTimeout(() => {
-        this.applyStyles();
-      }, 500);
-    });
+    // Handle browser navigation
+    window.addEventListener('popstate', this.debounceStyleUpdate.bind(this));
+  }
+
+  // Cleanup method for memory management
+  destroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = null;
+    }
+
+    if (this.debounceTimer) {
+      clearTimeout(this.debounceTimer);
+      this.debounceTimer = null;
+    }
+
+    const style = document.getElementById(this.styleId);
+    if (style) {
+      style.remove();
+    }
+
+    document.body.classList.remove('cleantube-active');
+
+    window.removeEventListener('popstate', this.debounceStyleUpdate.bind(this));
   }
 }
 
-// Initialize
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    new CleanTube();
-  });
-} else {
-  new CleanTube();
+// Initialize extension with proper error handling
+let cleanTubeInstance = null;
+
+function initializeCleanTube() {
+  try {
+    if (cleanTubeInstance) {
+      cleanTubeInstance.destroy();
+    }
+    cleanTubeInstance = new CleanTube();
+  } catch (error) {
+    console.error('Failed to initialize CleanTube:', error);
+  }
 }
 
-new CleanTube();
+// Robust initialization
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeCleanTube);
+} else {
+  initializeCleanTube();
+}
+
+// Cleanup on page unload to prevent memory leaks
+window.addEventListener('beforeunload', () => {
+  if (cleanTubeInstance) {
+    cleanTubeInstance.destroy();
+  }
+});
 
