@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C48B57632E1577A500096088 /* CleanTube Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C48B57622E1577A500096088 /* CleanTube Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		C48B57632E1577A500096088 /* CalmTube Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = C48B57622E1577A500096088 /* CalmTube Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,7 +27,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				C48B57632E1577A500096088 /* CleanTube Extension.appex in Embed Foundation Extensions */,
+				C48B57632E1577A500096088 /* CalmTube Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -35,36 +35,36 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		C48B57462E1577A200096088 /* CleanTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CleanTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		C48B57622E1577A500096088 /* CleanTube Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "CleanTube Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C48B57462E1577A200096088 /* CalmTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalmTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C48B57622E1577A500096088 /* CalmTube Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "CalmTube Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		C48B577C2E1577A500096088 /* Exceptions for "CleanTube Extension" folder in "CleanTube Extension" target */ = {
+		C48B577C2E1577A500096088 /* Exceptions for "CalmTube Extension" folder in "CalmTube Extension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = C48B57612E1577A500096088 /* CleanTube Extension */;
+			target = C48B57612E1577A500096088 /* CalmTube Extension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		C48B57482E1577A200096088 /* CleanTube */ = {
+		C48B57482E1577A200096088 /* CalmTube */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = CleanTube;
+			path = CalmTube;
 			sourceTree = "<group>";
 		};
-		C48B57662E1577A500096088 /* CleanTube Extension */ = {
+		C48B57662E1577A500096088 /* CalmTube Extension */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				C48B577C2E1577A500096088 /* Exceptions for "CleanTube Extension" folder in "CleanTube Extension" target */,
+				C48B577C2E1577A500096088 /* Exceptions for "CalmTube Extension" folder in "CalmTube Extension" target */,
 			);
 			explicitFolders = (
 				Resources/_locales,
 				Resources/images,
 			);
-			path = "CleanTube Extension";
+			path = "CalmTube Extension";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -90,8 +90,8 @@
 		C48B573D2E1577A200096088 = {
 			isa = PBXGroup;
 			children = (
-				C48B57482E1577A200096088 /* CleanTube */,
-				C48B57662E1577A500096088 /* CleanTube Extension */,
+				C48B57482E1577A200096088 /* CalmTube */,
+				C48B57662E1577A500096088 /* CalmTube Extension */,
 				C48B57472E1577A200096088 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,8 +99,8 @@
 		C48B57472E1577A200096088 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C48B57462E1577A200096088 /* CleanTube.app */,
-				C48B57622E1577A500096088 /* CleanTube Extension.appex */,
+				C48B57462E1577A200096088 /* CalmTube.app */,
+				C48B57622E1577A500096088 /* CalmTube Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,9 +108,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C48B57452E1577A200096088 /* CleanTube */ = {
+		C48B57452E1577A200096088 /* CalmTube */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C48B57832E1577A500096088 /* Build configuration list for PBXNativeTarget "CleanTube" */;
+			buildConfigurationList = C48B57832E1577A500096088 /* Build configuration list for PBXNativeTarget "CalmTube" */;
 			buildPhases = (
 				C48B57422E1577A200096088 /* Sources */,
 				C48B57432E1577A200096088 /* Frameworks */,
@@ -123,18 +123,18 @@
 				C48B57652E1577A500096088 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				C48B57482E1577A200096088 /* CleanTube */,
+				C48B57482E1577A200096088 /* CalmTube */,
 			);
-			name = CleanTube;
+			name = CalmTube;
 			packageProductDependencies = (
 			);
-			productName = CleanTube;
-			productReference = C48B57462E1577A200096088 /* CleanTube.app */;
+			productName = CalmTube;
+			productReference = C48B57462E1577A200096088 /* CalmTube.app */;
 			productType = "com.apple.product-type.application";
 		};
-		C48B57612E1577A500096088 /* CleanTube Extension */ = {
+		C48B57612E1577A500096088 /* CalmTube Extension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C48B577D2E1577A500096088 /* Build configuration list for PBXNativeTarget "CleanTube Extension" */;
+			buildConfigurationList = C48B577D2E1577A500096088 /* Build configuration list for PBXNativeTarget "CalmTube Extension" */;
 			buildPhases = (
 				C48B575E2E1577A500096088 /* Sources */,
 				C48B575F2E1577A500096088 /* Frameworks */,
@@ -145,13 +145,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				C48B57662E1577A500096088 /* CleanTube Extension */,
+				C48B57662E1577A500096088 /* CalmTube Extension */,
 			);
-			name = "CleanTube Extension";
+			name = "CalmTube Extension";
 			packageProductDependencies = (
 			);
-			productName = "CleanTube Extension";
-			productReference = C48B57622E1577A500096088 /* CleanTube Extension.appex */;
+			productName = "CalmTube Extension";
+			productReference = C48B57622E1577A500096088 /* CalmTube Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -172,7 +172,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C48B57412E1577A200096088 /* Build configuration list for PBXProject "CleanTube" */;
+			buildConfigurationList = C48B57412E1577A200096088 /* Build configuration list for PBXProject "CalmTube" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -186,8 +186,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C48B57452E1577A200096088 /* CleanTube */,
-				C48B57612E1577A500096088 /* CleanTube Extension */,
+				C48B57452E1577A200096088 /* CalmTube */,
+				C48B57612E1577A500096088 /* CalmTube Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -229,7 +229,7 @@
 /* Begin PBXTargetDependency section */
 		C48B57652E1577A500096088 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = C48B57612E1577A500096088 /* CleanTube Extension */;
+			target = C48B57612E1577A500096088 /* CalmTube Extension */;
 			targetProxy = C48B57642E1577A500096088 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -238,14 +238,14 @@
 		C48B577E2E1577A500096088 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "CleanTube Extension/CleanTube_Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "CalmTube Extension/CalmTube_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F2Z5AUR56U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "CleanTube Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "CleanTube Extension";
+				INFOPLIST_FILE = "CalmTube Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "CalmTube Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -258,7 +258,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.maxoliinyk.CleanTube.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxoliinyk.CalmTube.Extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -269,14 +269,14 @@
 		C48B577F2E1577A500096088 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "CleanTube Extension/CleanTube_Extension.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "CalmTube Extension/CalmTube_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F2Z5AUR56U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "CleanTube Extension/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "CleanTube Extension";
+				INFOPLIST_FILE = "CalmTube Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "CalmTube Extension";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -289,7 +289,7 @@
 					"-framework",
 					SafariServices,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.maxoliinyk.CleanTube.Extension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxoliinyk.CalmTube.Extension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -422,14 +422,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = CleanTube/CleanTube.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CalmTube/CalmTube.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F2Z5AUR56U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = CleanTube;
+				INFOPLIST_KEY_CFBundleDisplayName = CalmTube;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -445,7 +445,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.maxoliinyk.CleanTube;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxoliinyk.CalmTube;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -458,14 +458,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = CleanTube/CleanTube.entitlements;
+				CODE_SIGN_ENTITLEMENTS = CalmTube/CalmTube.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F2Z5AUR56U;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = CleanTube;
+				INFOPLIST_KEY_CFBundleDisplayName = CalmTube;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
@@ -481,7 +481,7 @@
 					"-framework",
 					WebKit,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = dev.maxoliinyk.CleanTube;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maxoliinyk.CalmTube;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -492,7 +492,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C48B57412E1577A200096088 /* Build configuration list for PBXProject "CleanTube" */ = {
+		C48B57412E1577A200096088 /* Build configuration list for PBXProject "CalmTube" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C48B57802E1577A500096088 /* Debug */,
@@ -501,7 +501,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C48B577D2E1577A500096088 /* Build configuration list for PBXNativeTarget "CleanTube Extension" */ = {
+		C48B577D2E1577A500096088 /* Build configuration list for PBXNativeTarget "CalmTube Extension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C48B577E2E1577A500096088 /* Debug */,
@@ -510,7 +510,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C48B57832E1577A500096088 /* Build configuration list for PBXNativeTarget "CleanTube" */ = {
+		C48B57832E1577A500096088 /* Build configuration list for PBXNativeTarget "CalmTube" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C48B57842E1577A500096088 /* Debug */,

@@ -1,6 +1,6 @@
-# Contributing to CleanTube
+# Contributing to CalmTube
 
-Thank you for your interest in contributing to CleanTube! This guide will help you add new features, fix bugs, and improve the extension.
+Thank you for your interest in contributing to CalmTube! This guide will help you add new features, fix bugs, and improve the extension.
 
 ## Ways to Contribute
 
@@ -36,7 +36,7 @@ document.querySelectorAll('your-selector').forEach(el => el.style.display = '')
 
 ### Step 3: Add to Extension
 
-**1. Update Content Script** (`CleanTube Extension/Resources/content.js`)
+**1. Update Content Script** (`CalmTube Extension/Resources/content.js`)
 
 Add your selector to the `this.selectors` object:
 
@@ -52,7 +52,7 @@ this.selectors = {
 };
 ```
 
-**2. Add UI Control** (`CleanTube Extension/Resources/popup.html`)
+**2. Add UI Control** (`CalmTube Extension/Resources/popup.html`)
 
 Add a checkbox in the appropriate section:
 
@@ -182,9 +182,9 @@ YouTube frequently changes their interface, breaking filters. When this happens:
 ## Development Setup
 
 ```bash
-git clone https://github.com/maxoliinyk/cleantube
-cd cleantube
-open CleanTube.xcodeproj
+git clone https://github.com/maxoliinyk/calmtube
+cd calmtube
+open CalmTube.xcodeproj
 ```
 
 **Requirements:**
@@ -194,9 +194,7 @@ open CleanTube.xcodeproj
 
 ## Getting Help
 
-- **Questions**: [GitHub Discussions](https://github.com/maxoliinyk/cleantube/discussions)
-- **Real-time help**: [Create an issue](https://github.com/maxoliinyk/cleantube/issues)
+- **Questions**: [GitHub Discussions](https://github.com/maxoliinyk/calmtube/discussions)
+- **Real-time help**: [Create an issue](https://github.com/maxoliinyk/calmtube/issues)
 
----
-
-Thank you for helping make YouTube cleaner for everyone! 
+--- 

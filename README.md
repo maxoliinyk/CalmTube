@@ -1,6 +1,6 @@
-# CleanTube - Safari Extension for YouTube
+# CalmTube - Safari Extension for YouTube
 
-A lightweight Safari extension that removes distracting elements from YouTube for a cleaner viewing experience.
+A lightweight Safari extension that removes distracting elements from YouTube for a calmer viewing experience.
 
 ## Features
 
@@ -43,15 +43,15 @@ A lightweight Safari extension that removes distracting elements from YouTube fo
 
 **Steps:**
 1. Clone this repository
-2. Open `CleanTube.xcodeproj` in Xcode
+2. Open `CalmTube.xcodeproj` in Xcode
 3. Build and run the project
-4. In Safari: Preferences → Extensions → Enable CleanTube Extension
-5. Visit YouTube and click the CleanTube icon in the toolbar
+4. In Safari: Preferences → Extensions → Enable CalmTube Extension
+5. Visit YouTube and click the CalmTube icon in the toolbar
 
 ## How to Use
 
 1. Visit YouTube in Safari
-2. Click the CleanTube icon in Safari's toolbar
+2. Click the CalmTube icon in Safari's toolbar
 3. Toggle options to hide distracting elements
 4. Settings are saved automatically and persist across 
 browser sessions
@@ -69,12 +69,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for details on adding new filters, testin
 
 ## Support
 
-- [Report bugs](https://github.com/maxoliinyk/cleantube/issues)
-- [Request features](https://github.com/maxoliinyk/cleantube/discussions)
+- [Report bugs](https://github.com/maxoliinyk/calmtube/issues)
+- [Request features](https://github.com/maxoliinyk/calmtube/discussions)
 
 ## Support Development
 
-If CleanTube makes your YouTube experience better, 
+If CalmTube makes your YouTube experience better, 
 consider:
 - Starring this repository
 - Sharing with friends who hate YouTube clutter
@@ -87,6 +87,6 @@ consider:
 
 ---
 
-Made for a cleaner YouTube experience.
+Made for a calmer YouTube experience.
 
-CleanTube is not affiliated with YouTube or Google. YouTube is a trademark of Google Inc. 
+CalmTube is not affiliated with YouTube or Google. YouTube is a trademark of Google Inc. 

@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  CleanTube
+//  CalmTube
 //
 //  Created by Max Oliinyk on 02.07.2025.
 //
@@ -9,7 +9,7 @@ import Cocoa
 import SafariServices
 import WebKit
 
-let extensionBundleIdentifier = "dev.maxoliinyk.CleanTube.Extension"
+let extensionBundleIdentifier = "dev.maxoliinyk.CalmTube.Extension"
 
 class ViewController: NSViewController, WKNavigationDelegate, WKScriptMessageHandler {
 

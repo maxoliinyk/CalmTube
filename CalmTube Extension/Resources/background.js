@@ -1,5 +1,5 @@
-// CleanTube Background Script
-class CleanTubeBackground {
+// CalmTube Background Script
+class CalmTubeBackground {
   constructor() {
     this.defaultSettings = {
       // Sidebar options
@@ -32,16 +32,16 @@ class CleanTubeBackground {
     this.setupInstallListener();
     this.setupMessageListener();
     this.setupTabUpdateListener();
-    console.log('CleanTube background script initialized');
+    console.log('CalmTube background script initialized');
   }
 
   setupInstallListener() {
     browser.runtime.onInstalled.addListener((details) => {
       if (details.reason === 'install') {
-        console.log('CleanTube extension installed');
+        console.log('CalmTube extension installed');
         this.setDefaultSettings();
       } else if (details.reason === 'update') {
-        console.log('CleanTube extension updated');
+        console.log('CalmTube extension updated');
         this.updateExistingSettings();
       }
     });
@@ -142,4 +142,4 @@ class CleanTubeBackground {
 }
 
 // Initialize background script
-new CleanTubeBackground();
+new CalmTubeBackground();

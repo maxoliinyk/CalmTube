@@ -1,6 +1,6 @@
-class CleanTube {
+class CalmTube {
   constructor() {
-    this.styleId = 'cleantube-styles';
+    this.styleId = 'calmtube-styles';
     this.settings = {};
     this.extensionEnabled = true;
     this.observer = null;
@@ -184,9 +184,9 @@ class CleanTube {
       this.applyStyles();
       this.setupMessageListener();
       this.observeNavigation();
-      console.log('CleanTube content script initialized');
+      console.log('CalmTube content script initialized');
     } catch (error) {
-      console.error('CleanTube initialization error:', error);
+      console.error('CalmTube initialization error:', error);
     }
   }
 
@@ -198,7 +198,7 @@ class CleanTube {
       this.settings = result;
       this.extensionEnabled = result.extensionEnabled !== false;
     } catch (error) {
-      console.error('CleanTube: Error loading settings:', error);
+      console.error('CalmTube: Error loading settings:', error);
       this.settings = {};
       this.extensionEnabled = true;
     }
@@ -206,10 +206,10 @@ class CleanTube {
 
   generateCSS() {
     if (!this.extensionEnabled) {
-      return '/* CleanTube - Extension Disabled */';
+      return '/* CalmTube - Extension Disabled */';
     }
 
-    let css = '/* CleanTube - Active */\n';
+    let css = '/* CalmTube - Active */\n';
 
     // Generate hiding rules efficiently
     Object.entries(this.settings).forEach(([setting, enabled]) => {
@@ -256,7 +256,7 @@ ytd-app {
     }
 
     css += `
-body.cleantube-active * { 
+    body.calmtube-active * { 
   transition: opacity 0.2s ease !important; 
 }
 `;
@@ -279,7 +279,7 @@ body.cleantube-active * {
     (document.head || document.documentElement).appendChild(style);
 
     // Add/remove body class based on extension state
-    document.body.classList.toggle('cleantube-active', this.extensionEnabled);
+    document.body.classList.toggle('calmtube-active', this.extensionEnabled);
   }
 
   setupMessageListener() {
@@ -366,37 +366,37 @@ body.cleantube-active * {
       style.remove();
     }
 
-    document.body.classList.remove('cleantube-active');
+    document.body.classList.remove('calmtube-active');
 
     window.removeEventListener('popstate', this.debounceStyleUpdate.bind(this));
   }
 }
 
 // Initialize extension with proper error handling
-let cleanTubeInstance = null;
+let calmTubeInstance = null;
 
-function initializeCleanTube() {
+function initializeCalmTube() {
   try {
-    if (cleanTubeInstance) {
-      cleanTubeInstance.destroy();
+    if (calmTubeInstance) {
+      calmTubeInstance.destroy();
     }
-    cleanTubeInstance = new CleanTube();
+    calmTubeInstance = new CalmTube();
   } catch (error) {
-    console.error('Failed to initialize CleanTube:', error);
+    console.error('Failed to initialize CalmTube:', error);
   }
 }
 
 // Robust initialization
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initializeCleanTube);
+  document.addEventListener('DOMContentLoaded', initializeCalmTube);
 } else {
-  initializeCleanTube();
+  initializeCalmTube();
 }
 
 // Cleanup on page unload to prevent memory leaks
 window.addEventListener('beforeunload', () => {
-  if (cleanTubeInstance) {
-    cleanTubeInstance.destroy();
+  if (calmTubeInstance) {
+    calmTubeInstance.destroy();
   }
 });
 

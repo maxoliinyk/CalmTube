@@ -1,5 +1,5 @@
-// CleanTube Popup Script
-class CleanTubePopup {
+// CalmTube Popup Script
+class CalmTubePopup {
   constructor() {
     this.options = [
       // Sidebar options
@@ -39,7 +39,7 @@ class CleanTubePopup {
       await this.loadSettings();
       this.setupUI();
       this.setupEventListeners();
-      console.log('CleanTube popup initialized');
+      console.log('CalmTube popup initialized');
     } catch (error) {
       console.error('Error initializing popup:', error);
     }
@@ -333,7 +333,7 @@ class CleanTubePopup {
 
 // Initialize when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => new CleanTubePopup());
+  document.addEventListener('DOMContentLoaded', () => new CalmTubePopup());
 } else {
-  new CleanTubePopup();
+      new CalmTubePopup();
 }

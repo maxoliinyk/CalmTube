@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  CleanTube
+//  CalmTube
 //
 //  Created by Max Oliinyk on 02.07.2025.
 //

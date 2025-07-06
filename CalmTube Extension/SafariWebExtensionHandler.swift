@@ -1,6 +1,6 @@
 //
 //  SafariWebExtensionHandler.swift
-//  CleanTube Extension
+//  CalmTube Extension
 //
 //  Created by Max Oliinyk on 02.07.2025.
 //
