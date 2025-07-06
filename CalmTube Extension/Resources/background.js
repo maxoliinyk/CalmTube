@@ -7,7 +7,7 @@ class CalmTubeBackground {
       'hide-explore-section': false, 'hide-more-from-youtube': false, 'hide-sidebar-footer': false, 'hide-footer': false,
 
       // Top bar options
-      'hide-burger-menu': false, 'hide-youtube-logo': false, 'hide-search-bar': false, 'hide-voice-search': false,
+      'hide-entire-topbar': false, 'hide-burger-menu': false, 'hide-youtube-logo': false, 'hide-search-bar': false, 'hide-voice-search': false,
       'hide-search-filters': false, 'hide-create-button': false, 'hide-notifications': false, 'hide-profile-menu': false,
 
       // Home page content

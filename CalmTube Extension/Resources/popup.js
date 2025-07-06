@@ -7,7 +7,7 @@ class CalmTubePopup {
       'hide-explore-section', 'hide-more-from-youtube', 'hide-sidebar-footer', 'hide-footer',
 
       // Top bar options
-      'hide-burger-menu', 'hide-youtube-logo', 'hide-search-bar', 'hide-voice-search',
+      'hide-entire-topbar', 'hide-burger-menu', 'hide-youtube-logo', 'hide-search-bar', 'hide-voice-search',
       'hide-search-filters', 'hide-create-button', 'hide-notifications', 'hide-profile-menu',
 
       // Home page content
@@ -18,6 +18,18 @@ class CalmTubePopup {
 
       // Video interaction buttons
       'hide-like-dislike', 'hide-share-button', 'hide-clip-button', 'hide-save-button', 'hide-more-actions', 'hide-subscribe-button'
+    ];
+
+    // Define sidebar options for toggle functionality
+    this.sidebarOptions = [
+      'hide-you-section', 'hide-subscriptions-section', 'hide-explore-section',
+      'hide-more-from-youtube', 'hide-sidebar-footer', 'hide-footer'
+    ];
+
+    // Define top bar options for toggle functionality  
+    this.topBarOptions = [
+      'hide-burger-menu', 'hide-youtube-logo', 'hide-search-bar', 'hide-voice-search',
+      'hide-search-filters', 'hide-create-button', 'hide-notifications', 'hide-profile-menu'
     ];
 
     this.minimalModeOptions = [
@@ -168,14 +180,39 @@ class CalmTubePopup {
 
   async handleOptionChange(option, checked) {
     try {
-      this.currentSettings[option] = checked;
+      // Handle toggle behavior for hide-entire-sidebar
+      if (option === 'hide-entire-sidebar') {
+        if (checked) {
+          // Store current sidebar settings before hiding all
+          await this.storePreSidebarSettings();
+          this.activateHideSidebar();
+        } else {
+          // Restore previous sidebar settings
+          await this.restorePreSidebarSettings();
+        }
+      }
+      // Handle toggle behavior for hide-entire-topbar
+      else if (option === 'hide-entire-topbar') {
+        if (checked) {
+          // Store current topbar settings before hiding all
+          await this.storePreTopBarSettings();
+          this.activateHideTopBar();
+        } else {
+          // Restore previous topbar settings
+          await this.restorePreTopBarSettings();
+        }
+      }
+      // Handle other options normally
+      else {
+        this.currentSettings[option] = checked;
 
-      // Auto-enable search filters hiding when recommendations are hidden
-      if (option === 'hide-recommendations' && checked) {
-        const searchFiltersCheckbox = document.getElementById('hide-search-filters');
-        if (searchFiltersCheckbox && !searchFiltersCheckbox.checked) {
-          searchFiltersCheckbox.checked = true;
-          this.currentSettings['hide-search-filters'] = true;
+        // Auto-enable search filters hiding when recommendations are hidden
+        if (option === 'hide-recommendations' && checked) {
+          const searchFiltersCheckbox = document.getElementById('hide-search-filters');
+          if (searchFiltersCheckbox && !searchFiltersCheckbox.checked) {
+            searchFiltersCheckbox.checked = true;
+            this.currentSettings['hide-search-filters'] = true;
+          }
         }
       }
 
@@ -270,6 +307,92 @@ class CalmTubePopup {
     });
   }
 
+  // Sidebar toggle methods
+  async storePreSidebarSettings() {
+    const preSidebarSettings = {};
+    this.sidebarOptions.forEach(option => {
+      preSidebarSettings[option] = this.currentSettings[option];
+    });
+    await browser.storage.sync.set({ preSidebarSettings });
+  }
+
+  async restorePreSidebarSettings() {
+    try {
+      const result = await browser.storage.sync.get('preSidebarSettings');
+
+      if (result.preSidebarSettings) {
+        this.sidebarOptions.forEach(option => {
+          const value = result.preSidebarSettings[option] || false;
+          this.currentSettings[option] = value;
+
+          const checkbox = document.getElementById(option);
+          if (checkbox) checkbox.checked = value;
+        });
+      }
+
+      // Also uncheck the hide-entire-sidebar option
+      this.currentSettings['hide-entire-sidebar'] = false;
+      const sidebarCheckbox = document.getElementById('hide-entire-sidebar');
+      if (sidebarCheckbox) sidebarCheckbox.checked = false;
+
+    } catch (error) {
+      console.error('Error restoring pre-sidebar settings:', error);
+    }
+  }
+
+  activateHideSidebar() {
+    // Enable hide-entire-sidebar and all sidebar options
+    this.currentSettings['hide-entire-sidebar'] = true;
+    this.sidebarOptions.forEach(option => {
+      this.currentSettings[option] = true;
+      const checkbox = document.getElementById(option);
+      if (checkbox) checkbox.checked = true;
+    });
+  }
+
+  // Top bar toggle methods
+  async storePreTopBarSettings() {
+    const preTopBarSettings = {};
+    this.topBarOptions.forEach(option => {
+      preTopBarSettings[option] = this.currentSettings[option];
+    });
+    await browser.storage.sync.set({ preTopBarSettings });
+  }
+
+  async restorePreTopBarSettings() {
+    try {
+      const result = await browser.storage.sync.get('preTopBarSettings');
+
+      if (result.preTopBarSettings) {
+        this.topBarOptions.forEach(option => {
+          const value = result.preTopBarSettings[option] || false;
+          this.currentSettings[option] = value;
+
+          const checkbox = document.getElementById(option);
+          if (checkbox) checkbox.checked = value;
+        });
+      }
+
+      // Also uncheck the hide-entire-topbar option
+      this.currentSettings['hide-entire-topbar'] = false;
+      const topbarCheckbox = document.getElementById('hide-entire-topbar');
+      if (topbarCheckbox) topbarCheckbox.checked = false;
+
+    } catch (error) {
+      console.error('Error restoring pre-topbar settings:', error);
+    }
+  }
+
+  activateHideTopBar() {
+    // Enable hide-entire-topbar and all top bar options
+    this.currentSettings['hide-entire-topbar'] = true;
+    this.topBarOptions.forEach(option => {
+      this.currentSettings[option] = true;
+      const checkbox = document.getElementById(option);
+      if (checkbox) checkbox.checked = true;
+    });
+  }
+
   updateMinimalModeButton() {
     const minimalBtn = document.getElementById('minimal-mode-btn');
     if (minimalBtn) {
@@ -315,7 +438,7 @@ class CalmTubePopup {
       this.extensionEnabled = true;
 
       await browser.storage.sync.set(resetSettings);
-      await browser.storage.sync.remove('preMinimalSettings');
+      await browser.storage.sync.remove(['preMinimalSettings', 'preSidebarSettings', 'preTopBarSettings']);
 
       this.updateUI();
       await this.applySettingsToCurrentTab();

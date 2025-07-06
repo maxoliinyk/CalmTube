@@ -7,7 +7,7 @@ class CalmTube {
     this.debounceTimer = null;
 
     this.selectors = {
-      // Sidebar Management
+      // Sidebar
       'hide-entire-sidebar': [
         '#guide',
         'ytd-mini-guide-renderer',
@@ -17,10 +17,13 @@ class CalmTube {
       ],
       'hide-shorts': [
         'ytd-guide-entry-renderer:has(a[href="/shorts"])',
-        'ytd-guide-entry-renderer:has([title="Shorts"])',
-        `ytd-mini-guide-entry-renderer:has([aria-label*="Shorts"])`,
+        'ytd-guide-entry-renderer:has([title*="Shorts"])',
+        `ytd-mini-guide-entry-renderer:has([title*="Shorts"])`,
+        `ytd-mini-guide-entry-renderer:has([title*="YouTube Shorts"])`,
+        'ytd-rich-section-renderer:has([aria-label*="YouTube Shorts"])',
         // Shorts feed on homepage and other pages
         'ytd-rich-shelf-renderer:has([title*="Shorts"])',
+        'ytd-rich-shelf-renderer:has([title*="YouTube Shorts"])',
         'ytd-reel-shelf-renderer',
         'ytd-rich-section-renderer:has([aria-label*="Shorts"])',
         // Individual shorts videos
@@ -69,7 +72,12 @@ class CalmTube {
         '#footer'
       ],
 
-      // Top Bar Elements
+      // Top Bar Elements  
+      'hide-entire-topbar': [
+        '#masthead-container.ytd-app',
+        'ytd-masthead#masthead',
+        '#masthead.ytd-app'
+      ],
       'hide-burger-menu': [
         '#guide-button',
         'button#guide-button'
@@ -254,7 +262,7 @@ ytd-app {
 `;
     }
 
-    // Check if all top bar options are enabled
+    // Check if top bar should be completely hidden
     const topBarOptions = [
       'hide-burger-menu',
       'hide-youtube-logo',
@@ -267,8 +275,9 @@ ytd-app {
     ];
 
     const allTopBarHidden = topBarOptions.every(option => this.settings[option]);
+    const hideEntireTopBar = this.settings['hide-entire-topbar'] || allTopBarHidden;
 
-    if (allTopBarHidden) {
+    if (hideEntireTopBar) {
       css += `
 #masthead-container.ytd-app,
 ytd-masthead#masthead {
