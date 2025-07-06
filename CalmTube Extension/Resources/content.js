@@ -15,6 +15,32 @@ class CalmTube {
         'tp-yt-app-drawer#guide',
         '#guide-button'
       ],
+      'hide-shorts': [
+        'ytd-guide-entry-renderer:has(a[href="/shorts"])',
+        'ytd-guide-entry-renderer:has([title="Shorts"])',
+        `ytd-mini-guide-entry-renderer:has([aria-label*="Shorts"])`,
+        // Shorts feed on homepage and other pages
+        'ytd-rich-shelf-renderer:has([title*="Shorts"])',
+        'ytd-reel-shelf-renderer',
+        'ytd-rich-section-renderer:has([aria-label*="Shorts"])',
+        // Individual shorts videos
+        'ytd-video-renderer:has([aria-label*="Shorts"])',
+        'ytd-rich-item-renderer:has([aria-label*="Shorts"])',
+        // Shorts shelf containers
+        '[is-shorts]',
+        'ytd-rich-shelf-renderer[is-shorts]',
+        // Additional shorts containers
+        'ytd-reel-video-renderer',
+        'ytd-shorts-lockup-view-model',
+        // More comprehensive shorts selectors
+        'ytd-rich-item-renderer:has([href*="/shorts/"])',
+        'ytd-video-renderer:has([href*="/shorts/"])',
+        // Shorts shelves in search and other pages  
+        'ytd-shelf-renderer:has([title*="Shorts"])',
+        'ytd-horizontal-card-list-renderer:has([title*="Shorts"])',
+        // Shorts in notifications
+        'ytd-notification-renderer:has([href*="/shorts/"])'
+      ],
       'hide-you-section': [
         '#guide ytd-guide-collapsible-section-entry-renderer',
         '#guide ytd-guide-entry-renderer:has(a[href*="/feed/history"])',
@@ -36,8 +62,7 @@ class CalmTube {
         'ytd-guide-section-renderer:has(a[href*="youtubekids.com"])'
       ],
       'hide-sidebar-footer': [
-        '#guide ytd-guide-entry-renderer:has(a[href*="/account"])',
-        '#guide ytd-guide-entry-renderer:has(a[href*="/reporthistory"])',
+        'ytd-guide-section-renderer:has(a[href*="/reporthistory"])',
       ],
       'hide-footer': [
         'ytd-browse-secondary-contents-renderer',
@@ -88,32 +113,6 @@ class CalmTube {
       ],
       'hide-news': [
         'ytd-rich-shelf-renderer:has([title*="News"])'
-      ],
-      'hide-shorts': [
-        'ytd-guide-entry-renderer:has(a[href="/shorts"])',
-        'ytd-guide-entry-renderer:has([title="Shorts"])',
-        `ytd-mini-guide-entry-renderer:has([aria-label*="Shorts"])`,
-        // Shorts feed on homepage and other pages
-        'ytd-rich-shelf-renderer:has([title*="Shorts"])',
-        'ytd-reel-shelf-renderer',
-        'ytd-rich-section-renderer:has([aria-label*="Shorts"])',
-        // Individual shorts videos
-        'ytd-video-renderer:has([aria-label*="Shorts"])',
-        'ytd-rich-item-renderer:has([aria-label*="Shorts"])',
-        // Shorts shelf containers
-        '[is-shorts]',
-        'ytd-rich-shelf-renderer[is-shorts]',
-        // Additional shorts containers
-        'ytd-reel-video-renderer',
-        'ytd-shorts-lockup-view-model',
-        // More comprehensive shorts selectors
-        'ytd-rich-item-renderer:has([href*="/shorts/"])',
-        'ytd-video-renderer:has([href*="/shorts/"])',
-        // Shorts shelves in search and other pages  
-        'ytd-shelf-renderer:has([title*="Shorts"])',
-        'ytd-horizontal-card-list-renderer:has([title*="Shorts"])',
-        // Shorts in notifications
-        'ytd-notification-renderer:has([href*="/shorts/"])'
       ],
 
       // Video Page Elements
@@ -255,11 +254,73 @@ ytd-app {
 `;
     }
 
-    css += `
-    body.calmtube-active * { 
+    // Check if all top bar options are enabled
+    const topBarOptions = [
+      'hide-burger-menu',
+      'hide-youtube-logo',
+      'hide-search-bar',
+      'hide-voice-search',
+      'hide-search-filters',
+      'hide-create-button',
+      'hide-notifications',
+      'hide-profile-menu'
+    ];
+
+    const allTopBarHidden = topBarOptions.every(option => this.settings[option]);
+
+    if (allTopBarHidden) {
+      css += `
+#masthead-container.ytd-app,
+ytd-masthead#masthead {
+  display: none !important;
+}
+/* Also ensure the page content moves up to fill the space */
+ytd-page-manager.ytd-app {
+  margin-top: 0 !important;
+}
+/* Move sidebar to top of viewport */
+#guide.ytd-app,
+ytd-mini-guide-renderer.ytd-app {
+  top: 0 !important;
+  position: fixed !important;
+  height: 100vh !important;
+}
+/* Adjust guide content positioning */
+#guide-content.ytd-app {
+  top: 0 !important;
+  padding-top: 0 !important;
+}
+/* Hide frosted glass as well */
+#frosted-glass.with-chipbar.ytd-app,
+#frosted-glass.ytd-app { 
+  display: none !important;
+}
+`;
+    } else if (this.settings['hide-search-filters']) {
+      css += `
+#frosted-glass.with-chipbar.ytd-app { 
+  height: auto !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
+}
+#frosted-glass.ytd-app { 
+  height: auto !important;
+  min-height: 60px !important;
+  max-height: 60px !important;
+}
+`;
+    }
+
+    // Only add global transitions if any settings are actually enabled
+    const hasAnySettingsEnabled = Object.values(this.settings).some(enabled => enabled);
+
+    if (hasAnySettingsEnabled) {
+      css += `
+body.calmtube-active * { 
   transition: opacity 0.2s ease !important; 
 }
 `;
+    }
 
     return css;
   }
@@ -271,15 +332,22 @@ ytd-app {
       existingStyle.remove();
     }
 
-    // Apply new styles
-    const style = document.createElement('style');
-    style.id = this.styleId;
-    style.textContent = this.generateCSS();
+    // Check if any settings are actually enabled
+    const hasAnySettingsEnabled = Object.values(this.settings).some(enabled => enabled);
 
-    (document.head || document.documentElement).appendChild(style);
+    // Only apply styles and body class if extension is enabled AND has active settings
+    const shouldApplyStyles = this.extensionEnabled && hasAnySettingsEnabled;
 
-    // Add/remove body class based on extension state
-    document.body.classList.toggle('calmtube-active', this.extensionEnabled);
+    if (shouldApplyStyles) {
+      // Apply new styles
+      const style = document.createElement('style');
+      style.id = this.styleId;
+      style.textContent = this.generateCSS();
+      (document.head || document.documentElement).appendChild(style);
+    }
+
+    // Add/remove body class based on whether we're actually doing anything
+    document.body.classList.toggle('calmtube-active', shouldApplyStyles);
   }
 
   setupMessageListener() {

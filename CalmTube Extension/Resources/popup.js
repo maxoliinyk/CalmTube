@@ -335,5 +335,5 @@ class CalmTubePopup {
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', () => new CalmTubePopup());
 } else {
-      new CalmTubePopup();
+  new CalmTubePopup();
 }
