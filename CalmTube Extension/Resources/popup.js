@@ -14,7 +14,7 @@ class CalmTubePopup {
       'hide-recommendations', 'hide-shorts', 'hide-trending', 'hide-news',
 
       // Video page elements
-      'hide-related-videos', 'hide-live-chat', 'hide-comments', 'hide-video-suggestions', 'hide-video-description',
+      'hide-related-videos', 'hide-live-chat', 'hide-comments', 'hide-video-suggestions', 'hide-video-description', 'hide-annotations',
 
       // Video interaction buttons
       'hide-like-dislike', 'hide-share-button', 'hide-clip-button', 'hide-save-button', 'hide-more-actions', 'hide-subscribe-button'

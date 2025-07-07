@@ -143,6 +143,12 @@ class CalmTube {
         'ytd-video-secondary-info-renderer',
         '#description'
       ],
+      'hide-annotations': [
+        '.annotation.annotation-type-custom.iv-branding',
+        '.annotation',
+        '.ytp-ce-element',
+        '.iv-branding'
+      ],
 
       // Video Interaction Buttons
       'hide-like-dislike': [
